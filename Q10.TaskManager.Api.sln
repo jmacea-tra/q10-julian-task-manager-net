@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36429.23 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Q10.TaskManager.Api", "Q10.TaskManager.Api\Q10.TaskManager.Api.csproj", "{A18573DA-0196-F8AD-F4F3-5BCD41BAFE1C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A18573DA-0196-F8AD-F4F3-5BCD41BAFE1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A18573DA-0196-F8AD-F4F3-5BCD41BAFE1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A18573DA-0196-F8AD-F4F3-5BCD41BAFE1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A18573DA-0196-F8AD-F4F3-5BCD41BAFE1C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EF6776F5-BEF8-464D-8971-17E950984C9D}
+	EndGlobalSection
+EndGlobal
