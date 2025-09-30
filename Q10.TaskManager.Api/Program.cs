@@ -1,5 +1,5 @@
-using Q10.TaskManager.Infraestructure.Interfaces;
-using Q10.TaskManager.Infraestructure.Repositories;
+using Q10.TaskManager.Infrastructure.Interfaces;
+using Q10.TaskManager.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,9 +21,9 @@ builder.Services.AddOpenApi();
 
 // Ventaja: Se genera una instancia por cada petición http.
 // * Solo para logica de negocio.
-builder.Services.AddControllers();
 builder.Services.AddScoped<IConfig, SettingsRepository>();
 builder.Services.AddScoped<IConfig, EnvironmentRepository>();
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -36,8 +36,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 // Formas de acceder a una variable de entorno
-var en1 = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-var en2 = app.Configuration["ASPNETCORE_ENVIRONMENT"];
+//var en1 = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+//var en2 = app.Configuration["ASPNETCORE_ENVIRONMENT"];
 
 // Como se usa controladores se tienen que mapear estos.
 app.MapControllers();
