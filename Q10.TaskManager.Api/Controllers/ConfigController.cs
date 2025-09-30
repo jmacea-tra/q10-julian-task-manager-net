@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Q10.TaskManager.Infraestructure.Interfaces;
 using Q10.TaskManager.Infraestructure.Repositories;
+using System.Linq;
 
 namespace Q10.TaskManager.Api.Controllers
 {
@@ -10,16 +11,14 @@ namespace Q10.TaskManager.Api.Controllers
     public class ConfigController : ControllerBase
     {
         public IConfig Config { get; set; }
-
-        // Inyección de dependencias multiple.
         public ConfigController(IEnumerable<IConfig> configs)
         {
             Config = configs.OfType<EnvironmentRepository>().FirstOrDefault();
         }
-
         [HttpGet]
         public IActionResult Get()
         {
+
             return Ok(Config.GetValue("ASPNETCORE_ENVIRONMENT"));
         }
     }
