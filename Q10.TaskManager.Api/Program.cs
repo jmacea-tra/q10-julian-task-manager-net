@@ -1,11 +1,34 @@
+using Microsoft.OpenApi.Models;
 using Q10.TaskManager.Infrastructure.Interfaces;
 using Q10.TaskManager.Infrastructure.Repositories;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "API de Gestión de Tareas Q10",
+        Description = "API para la gestión de tareas y configuraciones del sistema",
+        Version = "v1",
+        Contact = new OpenApiContact
+        {
+            Name = "Equipo de Desarrollo",
+            Email = "desarrollo@q10.com"
+        }
+    });
+
+    // Configuración para incluir los comentarios XML
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    options.IncludeXmlComments(xmlPath);
+});
+
+// Registro de IMemoryCache y CacheRepository como singleton
+builder.Services.AddMemoryCache();
+builder.Services.AddSingleton<ICacheRepository, CacheRepository>();
 
 // Forma normal de usar la biblioteca de clases.
 //var settignsRepository = new SettingsRepository(builder.Configuration);
@@ -21,18 +44,19 @@ builder.Services.AddOpenApi();
 
 // Ventaja: Se genera una instancia por cada petición http.
 // * Solo para logica de negocio.
+//builder.Services.AddScoped<IConfig, EnvironmentRepository>();
 builder.Services.AddScoped<IConfig, SettingsRepository>();
-builder.Services.AddScoped<IConfig, EnvironmentRepository>();
 builder.Services.AddControllers();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// Habilitar Swagger en todos los ambientes
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.MapOpenApi();
-}
-
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "API de Gestión de Tareas Q10 v1");
+    c.RoutePrefix = "swagger"; // Para que Swagger UI sea la página de inicio
+});
 app.UseHttpsRedirection();
 
 // Formas de acceder a una variable de entorno
