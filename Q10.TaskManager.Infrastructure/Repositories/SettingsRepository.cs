@@ -1,25 +1,18 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Q10.TaskManager.Infraestructure.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Q10.TaskManager.Infrastructure.Interfaces;
 
-namespace Q10.TaskManager.Infraestructure.Repositories
+namespace Q10.TaskManager.Infrastructure.Repositories
 {
     public class SettingsRepository : IConfig
     {
-        //Inversión de dependencias
-        private IConfiguration Configuraction { get; set; }  
-        public SettingsRepository(IConfiguration configuraction)
+        private IConfiguration Configuration { get; set; }
+        public SettingsRepository(IConfiguration configuration)
         {
-            Configuraction = configuraction;
+            Configuration = configuration;
         }
-
         public string GetValue(string key)
         {
-            return Configuraction[key] ?? string.Empty;
+            return Configuration[key];
         }
     }
 }

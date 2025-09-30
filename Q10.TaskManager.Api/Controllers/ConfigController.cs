@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Q10.TaskManager.Infraestructure.Interfaces;
-using Q10.TaskManager.Infraestructure.Repositories;
+using Q10.TaskManager.Infrastructure.Interfaces;
+using Q10.TaskManager.Infrastructure.Repositories;
 using System.Linq;
 
 namespace Q10.TaskManager.Api.Controllers
@@ -15,6 +15,7 @@ namespace Q10.TaskManager.Api.Controllers
         {
             Config = configs.OfType<EnvironmentRepository>().FirstOrDefault();
         }
+
         [HttpGet]
         public IActionResult Get()
         {

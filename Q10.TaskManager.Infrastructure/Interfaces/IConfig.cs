@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Q10.TaskManager.Infraestructure.Interfaces
+namespace Q10.TaskManager.Infrastructure.Interfaces
 {
     public interface IConfig
     {
