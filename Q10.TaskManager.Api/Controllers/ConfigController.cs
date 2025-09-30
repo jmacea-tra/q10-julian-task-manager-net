@@ -1,0 +1,26 @@
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Q10.TaskManager.Infraestructure.Interfaces;
+using Q10.TaskManager.Infraestructure.Repositories;
+
+namespace Q10.TaskManager.Api.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ConfigController : ControllerBase
+    {
+        public IConfig Config { get; set; }
+
+        // Inyección de dependencias multiple.
+        public ConfigController(IEnumerable<IConfig> configs)
+        {
+            Config = configs.OfType<EnvironmentRepository>().FirstOrDefault();
+        }
+
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok(Config.GetValue("ASPNETCORE_ENVIRONMENT"));
+        }
+    }
+}
