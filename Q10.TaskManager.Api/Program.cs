@@ -21,6 +21,7 @@ builder.Services.AddOpenApi();
 
 // Ventaja: Se genera una instancia por cada petición http.
 // * Solo para logica de negocio.
+builder.Services.AddControllers();
 builder.Services.AddScoped<IConfig, SettingsRepository>();
 builder.Services.AddScoped<IConfig, EnvironmentRepository>();
 
