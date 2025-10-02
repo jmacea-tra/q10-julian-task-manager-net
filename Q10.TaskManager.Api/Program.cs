@@ -1,4 +1,5 @@
 using Microsoft.OpenApi.Models;
+using Q10.TaskManager.Api.Configurations;
 using Q10.TaskManager.Infrastructure.Interfaces;
 using Q10.TaskManager.Infrastructure.Repositories;
 using System.Reflection;
@@ -26,9 +27,10 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(xmlPath);
 });
 
+builder.Services.AddServices();
+
 // Registro de IMemoryCache y CacheRepository como singleton
 builder.Services.AddMemoryCache();
-builder.Services.AddSingleton<ICacheRepository, CacheRepository>();
 
 // Forma normal de usar la biblioteca de clases.
 //var settignsRepository = new SettingsRepository(builder.Configuration);
@@ -45,7 +47,7 @@ builder.Services.AddSingleton<ICacheRepository, CacheRepository>();
 // Ventaja: Se genera una instancia por cada petición http.
 // * Solo para logica de negocio.
 //builder.Services.AddScoped<IConfig, EnvironmentRepository>();
-builder.Services.AddScoped<IConfig, SettingsRepository>();
+
 builder.Services.AddControllers();
 
 var app = builder.Build();
