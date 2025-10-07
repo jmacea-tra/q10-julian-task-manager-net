@@ -10,15 +10,17 @@ namespace Q10.TaskManager.Api.Controllers
     [ApiController]
     public class TasksControllers : ControllerBase
     {
-        private readonly ICacheRepository _cacheRepository;
+        public IConfiguration Configuration;
+        public ICacheRepository CacheRepository;
 
         /// <summary>
         /// Constructor que recibe el repositorio de caché por inyección de dependencias.
         /// </summary>
         /// <param name="cacheRepository">Repositorio de caché</param>
-        public TasksControllers(ICacheRepository cacheRepository)
+        public TasksControllers(IConfiguration configuration, ICacheRepository cacheRepository)
         {
-            _cacheRepository = cacheRepository;
+            CacheRepository = cacheRepository;
+            Configuration = configuration;
         }
 
         /// <summary>
@@ -29,7 +31,7 @@ namespace Q10.TaskManager.Api.Controllers
         [HttpGet("get/{key}")]
         public ActionResult<string?> Get(string key)
         {
-            var value = _cacheRepository.Get<string>(key);
+            var value = CacheRepository.Get<string>(key);
             if (value == null)
                 return NotFound();
             return Ok(value);
@@ -43,7 +45,7 @@ namespace Q10.TaskManager.Api.Controllers
         [HttpPost("set")]
         public IActionResult Set([FromQuery] string key, [FromBody] string value)
         {
-            _cacheRepository.Set(key, value);
+            CacheRepository.Set(key, value);
             return Ok();
         }
 
@@ -54,7 +56,7 @@ namespace Q10.TaskManager.Api.Controllers
         [HttpDelete("remove/{key}")]
         public IActionResult Remove(string key)
         {
-            _cacheRepository.Remove(key);
+            CacheRepository.Remove(key);
             return NoContent();
         }
 
@@ -66,7 +68,7 @@ namespace Q10.TaskManager.Api.Controllers
         [HttpGet("exists/{key}")]
         public ActionResult<bool> Exists(string key)
         {
-            var exists = _cacheRepository.Exists(key);
+            var exists = CacheRepository.Exists(key);
             return Ok(exists);
         }
     }
