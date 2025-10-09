@@ -1,10 +1,31 @@
 # Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP.NET Core service.
 
 services:
-  q10taskmanagerapi:
+  api:
     image: q10taskmanagerapi
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      #CONNECTION_STRIGN="Host=postgres;Port=5432;Database=taskmanagerBD;Username=postgres;Password=postgres_password123"
     build:
       context: .
-      dockerfile: Q10.TaskManager.Api/Dockerfile
+      dockerfile: Dockerfile
     ports:
-      - 5266:5266
+      - 5100:80
+    networks:
+      - taskmanager-network
+  postgres:
+    image: postgres:latest
+    container_name: taskmanager-postgres
+    environment:
+      POSTGRES_DB: taskmanagerBD
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_password123
+    ports:
+      - "15432:5432"
+    #volumes:
+      #- postgres_data:/var/lib/postgresql/data
+volumes:
+  postgres_data:
+networks:
+  taskmanager-network:
+    driver: bridge

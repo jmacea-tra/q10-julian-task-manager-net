@@ -8,7 +8,8 @@
       "launchUrl": "swagger",
       "applicationUrl": "https://localhost:7225;http://localhost:5266",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "CONNECTION_STRING": "Host=localhost;Port=15432;Database=taskmanagerBD;Username=postgres;Password=postgres_password123"
       }
     },
     "Production": {

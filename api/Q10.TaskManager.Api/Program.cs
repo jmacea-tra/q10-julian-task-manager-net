@@ -49,8 +49,10 @@ builder.Services.AddMemoryCache();
 //builder.Services.AddScoped<IConfig, EnvironmentRepository>();
 
 builder.Services.AddControllers();
+builder.Services.AddDatabaseConfiguration();
 
 var app = builder.Build();
+await builder.Services.DatabaseCreatedAsync();
 
 // Habilitar Swagger en todos los ambientes
 app.UseSwagger();

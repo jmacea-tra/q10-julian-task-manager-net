@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Q10.TaskManager.Infrastructure.Data;
 using Q10.TaskManager.Infrastructure.Interfaces;
 
 namespace Q10.TaskManager.Api.Controllers
@@ -12,6 +13,7 @@ namespace Q10.TaskManager.Api.Controllers
     {
         public IConfiguration Configuration;
         public ICacheRepository CacheRepository;
+        public PostgreSQLContext Context;
 
         /// <summary>
         /// Constructor que recibe el repositorio de caché por inyección de dependencias.
